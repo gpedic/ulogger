@@ -1,0 +1,17 @@
+{
+    "name": "ulogger/ulogger",
+    "description": "Small logger for PHP",
+    "keywords": ["log", "logging"],
+    "type": "library",
+    "license": "MIT",
+    "version": "0.1.0",
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3.7.0"
+    },
+    "autoload": {
+        "psr-4": {"uLogger\\": "src/uLogger"}
+    }
+}
