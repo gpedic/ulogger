@@ -127,17 +127,16 @@ class Logger {
      * @return string
      */
     protected static function processLogMsg($message, array $context = null) {
-        $msg = "";
         if (!is_string($message) && static::canBeCastToString($message)) {
-            $msg = (string) $message;
+            $message = (string) $message;
         } elseif (is_array($context) && is_string($message)) {
-            $msg = static::interpolate($message, $context);
+            $message = static::interpolate($message, $context);
         }
         if (isset($context) && isset($context["exception"]) 
                 && $context["exception"] instanceof \Exception) {
-            $msg .= PHP_EOL . ((string) $context["exception"]);
+            $message .= PHP_EOL . ((string) $context["exception"]);
         }
-        return $msg;
+        return $message;
     }
 
     /**
