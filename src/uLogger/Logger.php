@@ -22,7 +22,7 @@ class Logger {
 
     /**
      * Map of log levels
-     * 
+     *
      * For getting the level name from the int value
      * @var array $levels
      */
@@ -39,7 +39,7 @@ class Logger {
 
     /**
      * Logger Constructor
-     * 
+     *
      * @param int $level
      * @param string $timeFormat
      * @throws \InvalidArgumentException
@@ -58,7 +58,7 @@ class Logger {
 
     /**
      * Attach a writer instance
-     * 
+     *
      * @param Writer $writer uLogger Writer instance
      */
     public function attachWriter(Writer $writer) {
@@ -79,9 +79,9 @@ class Logger {
 
     /**
      * Enable calling by log level method name
-     * 
+     *
      * @param string $name Log level name
-     * @param array $args 
+     * @param array $args
      */
     public function __call($name, $args) {
         $level = static::resolveLogLevel($name);
@@ -122,17 +122,21 @@ class Logger {
 
     /**
      * Process messages for logging
-     * 
+     *
      * @param string|array $messages
      * @return string
      */
     protected static function processLogMsg($message, array $context = null) {
-        if (!is_string($message) && static::canBeCastToString($message)) {
+		if (is_array($message)) {
+			$message = var_export($message, true);
+		}
+        else if (!is_string($message) && static::canBeCastToString($message)) {
             $message = (string) $message;
-        } elseif (is_array($context) && is_string($message)) {
+        }
+		elseif (is_array($context) && is_string($message)) {
             $message = static::interpolate($message, $context);
         }
-        if (isset($context) && isset($context["exception"]) 
+        if (isset($context) && isset($context["exception"])
                 && $context["exception"] instanceof \Exception) {
             $message .= PHP_EOL . ((string) $context["exception"]);
         }
@@ -141,7 +145,7 @@ class Logger {
 
     /**
      * Set log level
-     * 
+     *
      * @param int $level
      * @return boolean
      */
@@ -155,14 +159,14 @@ class Logger {
     }
 
     protected function contextContainsException () {
-        
+
     }
 
     /**
      * Get log level int value
-     * 
+     *
      * Resolve string level values to integers
-     * 
+     *
      * @param int|string $level
      * @return boolean
      */
@@ -181,7 +185,7 @@ class Logger {
 
     /**
      * Check if message should be logged
-     * 
+     *
      * @param int $msgLevel
      * @param int $logLevel
      * @return boolean
@@ -192,7 +196,7 @@ class Logger {
 
     /**
      * Check log level exists
-     * 
+     *
      * @param int $level
      * @return boolean
      */
@@ -205,7 +209,7 @@ class Logger {
 
     /**
      * Get timestamp with microsecond precision
-     * 
+     *
      * @param string $timeFormat The time format to return
      * @return string
      */
@@ -218,7 +222,7 @@ class Logger {
     }
 
     /**
-     * 
+     *
      * @param type $message
      * @param array $context
      * @return type
@@ -238,7 +242,7 @@ class Logger {
 
     /**
      * Check if value can be cast to string
-     * 
+     *
      * @param any $value
      * @return boolean
      */
